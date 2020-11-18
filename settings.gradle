@@ -1,0 +1,2 @@
+rootProject.name = "MarvelView"
+include ':app'
