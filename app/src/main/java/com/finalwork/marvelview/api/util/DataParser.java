@@ -1,10 +1,16 @@
 package com.finalwork.marvelview.api.util;
 
 import com.finalwork.marvelview.api.MarvelResult;
+import com.finalwork.marvelview.api.json.Url;
 import com.finalwork.marvelview.api.json.character.CharacterData;
 import com.finalwork.marvelview.api.json.character.CharacterDataContainer;
 import com.finalwork.marvelview.api.json.character.CharacterDataWrapper;
+import com.finalwork.marvelview.api.json.section.SectionData;
+import com.finalwork.marvelview.api.json.section.SectionDataContainer;
+import com.finalwork.marvelview.api.json.section.SectionDataWrapper;
+import com.finalwork.marvelview.api.json.section.SectionSummary;
 import com.finalwork.marvelview.model.viewobject.CharacterVO;
+import com.finalwork.marvelview.model.viewobject.SectionVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,23 +36,23 @@ public class DataParser {
                     character.setmImage(characterData.getImage());
                     for (Url url : characterData.urls) {
                         if (Url.TYPE_DETAIL.equals(url.type)) {
-                            character.setDetail(url.url);
+                            character.setmDetail(url.url);
                         } else if (Url.TYPE_WIKI.equals(url.type)) {
-                            character.setWiki(url.url);
+                            character.setmWiki(url.url);
                         } else if (Url.TYPE_COMICLINK.equals(url.type)) {
-                            character.setComicLink(url.url);
+                            character.setmComicLink(url.url);
                         }
                     }
-                    character.setComics(parseSection(characterData.comics.items));
-                    character.setSeries(parseSection(characterData.series.items));
-                    character.setStories(parseSection(characterData.stories.items));
-                    character.setEvents(parseSection(characterData.events.items));
+                    character.setmComics(parseSection(characterData.comics.items));
+                    character.setmSeries(parseSection(characterData.series.items));
+                    character.setmStories(parseSection(characterData.stories.items));
+                    character.setmEvents(parseSection(characterData.events.items));
                     characterList.add(character);
                 }
-                result.setEntries(characterList);
+                result.setmEntries(characterList);
             }
         }
-        result.setAttribution(dataWrapper.attributionText);
+        result.setmAttribution(dataWrapper.attributionText);
         return result;
     }
 
@@ -54,8 +60,8 @@ public class DataParser {
         List<SectionVO> list = new ArrayList<>();
         for (SectionSummary summary : items) {
             SectionVO section = new SectionVO();
-            section.setId(summary.getId());
-            section.setTitle(summary.name);
+            section.setmId(summary.getId());
+            section.setmTitle(summary.name);
             list.add(section);
         }
         return list;
@@ -65,23 +71,23 @@ public class DataParser {
         MarvelResult<SectionVO> result = new MarvelResult<>();
         SectionDataContainer dataContainer = dataWrapper.data;
         if (dataContainer != null) {
-            result.setOffset(dataContainer.offset);
-            result.setTotal(dataContainer.total);
+            result.setmOffset(dataContainer.offset);
+            result.setmTotal(dataContainer.total);
             SectionData[] results = dataContainer.results;
             if (results != null) {
                 List<SectionVO> list = new ArrayList<>(results.length);
                 for (SectionData sectionData : results) {
                     SectionVO sectionVO = new SectionVO();
-                    sectionVO.setId(sectionData.id);
-                    sectionVO.setTitle(sectionData.title);
-                    sectionVO.setThumbnail(sectionData.getThumbnail());
-                    sectionVO.setImage(sectionData.getImage());
+                    sectionVO.setmId(sectionData.id);
+                    sectionVO.setmTitle(sectionData.title);
+                    sectionVO.setmThumbnail(sectionData.getThumbnail());
+                    sectionVO.setmImage(sectionData.getImage());
                     list.add(sectionVO);
                 }
-                result.setEntries(list);
+                result.setmEntries(list);
             }
         }
-        result.setAttribution(dataWrapper.attributionText);
+        result.setmAttribution(dataWrapper.attributionText);
         return result;
     }
 

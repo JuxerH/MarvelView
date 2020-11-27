@@ -1,11 +1,11 @@
 package com.finalwork.marvelview.api;
 
 
-import com.andremion.heroes.BuildConfig;
-import com.andremion.heroes.api.auth.AuthenticatorInterceptor;
+import com.finalwork.marvelview.api.json.character.CharacterDataContainer;
 import com.finalwork.marvelview.model.viewobject.CharacterVO;
-import com.andremion.heroes.api.data.SectionVO;
-import com.andremion.heroes.api.util.DataParser;
+import com.finalwork.marvelview.api.exception.MarvelException;
+import com.finalwork.marvelview.model.viewobject.SectionVO;
+import com.finalwork.marvelview.api.util.DataParser;
 import com.finalwork.marvelview.api.json.character.CharacterDataWrapper;
 import com.finalwork.marvelview.api.json.section.SectionDataWrapper;
 
@@ -63,6 +63,7 @@ public class MarvelApi {
     public MarvelResult<CharacterVO> listCharacters(int offset) throws IOException, MarvelException {
         Response<CharacterDataWrapper> response = mService.listCharacters(null, offset, MAX_FETCH_LIMIT).execute();
         if (response.isSuccessful()) {
+            assert response.body() != null;
             return DataParser.parse(response.body());
         } else {
             throw new MarvelException(response.code(), response.message());
@@ -85,6 +86,7 @@ public class MarvelApi {
         int limit = 1;
         Response<CharacterDataWrapper> response = mService.listCharacters(null, /* offset */ 0, limit).execute();
         if (response.isSuccessful()) {
+            assert response.body() != null;
             CharacterDataContainer dataContainer = response.body().data;
             if (dataContainer != null) {
                 return dataContainer.total;
@@ -98,6 +100,7 @@ public class MarvelApi {
     public MarvelResult<CharacterVO> getCharacter(int offset) throws IOException, MarvelException {
         Response<CharacterDataWrapper> response = mService.listCharacters(null, offset, /* limit */ 1).execute();
         if (response.isSuccessful()) {
+            assert response.body() != null;
             return DataParser.parse(response.body());
         } else {
             throw new MarvelException(response.code(), response.message());
@@ -107,6 +110,7 @@ public class MarvelApi {
     public MarvelResult<SectionVO> listComics(long characterId, int offset) throws IOException, MarvelException {
         Response<SectionDataWrapper> response = mService.listComics(characterId, offset, MAX_FETCH_LIMIT).execute();
         if (response.isSuccessful()) {
+            assert response.body() != null;
             return DataParser.parse(response.body());
         } else {
             throw new MarvelException(response.code(), response.message());
@@ -120,6 +124,7 @@ public class MarvelApi {
     public MarvelResult<SectionVO> listSeries(long characterId, int offset) throws IOException, MarvelException {
         Response<SectionDataWrapper> response = mService.listSeries(characterId, offset, MAX_FETCH_LIMIT).execute();
         if (response.isSuccessful()) {
+            assert response.body() != null;
             return DataParser.parse(response.body());
         } else {
             throw new MarvelException(response.code(), response.message());
@@ -133,6 +138,7 @@ public class MarvelApi {
     public MarvelResult<SectionVO> listStories(long characterId, int offset) throws IOException, MarvelException {
         Response<SectionDataWrapper> response = mService.listStories(characterId, offset, MAX_FETCH_LIMIT).execute();
         if (response.isSuccessful()) {
+            assert response.body() != null;
             return DataParser.parse(response.body());
         } else {
             throw new MarvelException(response.code(), response.message());
@@ -146,6 +152,7 @@ public class MarvelApi {
     public MarvelResult<SectionVO> listEvents(long characterId, int offset) throws IOException, MarvelException {
         Response<SectionDataWrapper> response = mService.listEvents(characterId, offset, MAX_FETCH_LIMIT).execute();
         if (response.isSuccessful()) {
+            assert response.body() != null;
             return DataParser.parse(response.body());
         } else {
             throw new MarvelException(response.code(), response.message());
