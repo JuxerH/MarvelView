@@ -1,10 +1,13 @@
-package com.finalwork.marvelview;
+package com.finalwork.marvelview.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.finalwork.marvelview.R;
+
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
