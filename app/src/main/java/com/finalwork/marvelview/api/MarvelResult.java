@@ -17,6 +17,10 @@ public class MarvelResult<T> {//从接口获得的结果类
         mAttribution = "";
     }
 
+    public int getmCount(){
+        return mEntries.size();
+    }
+
     public int getmOffset() {
         return mOffset;
     }

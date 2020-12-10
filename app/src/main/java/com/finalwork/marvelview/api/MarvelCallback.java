@@ -7,7 +7,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public abstract class MarvelCallback<T> implements Callback<T> {
+public abstract class MarvelCallback<T> implements Callback<T> {//用于接受API回调结果
 
     @Override
     public final void onResponse(@NotNull Call<T> call, Response<T> response) {

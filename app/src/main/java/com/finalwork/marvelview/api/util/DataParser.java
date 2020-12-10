@@ -29,24 +29,24 @@ public class DataParser {
                 List<CharacterVO> characterList = new ArrayList<>(results.length);
                 for (CharacterData characterData : results) {
                     CharacterVO character = new CharacterVO();
-                    character.setmId(characterData.id);
-                    character.setmName(characterData.name);
-                    character.setmDescription(characterData.description);
-                    character.setmThumbnail(characterData.getThumbnail());
-                    character.setmImage(characterData.getImage());
+                    character.setId(characterData.id);
+                    character.setName(characterData.name);
+                    character.setDescription(characterData.description);
+                    character.setThumbnail(characterData.getThumbnail());
+                    character.setImage(characterData.getImage());
                     for (Url url : characterData.urls) {
                         if (Url.TYPE_DETAIL.equals(url.type)) {
-                            character.setmDetail(url.url);
+                            character.setDetail(url.url);
                         } else if (Url.TYPE_WIKI.equals(url.type)) {
-                            character.setmWiki(url.url);
+                            character.setWiki(url.url);
                         } else if (Url.TYPE_COMICLINK.equals(url.type)) {
-                            character.setmComicLink(url.url);
+                            character.setComicLink(url.url);
                         }
                     }
-                    character.setmComics(parseSection(characterData.comics.items));
-                    character.setmSeries(parseSection(characterData.series.items));
-                    character.setmStories(parseSection(characterData.stories.items));
-                    character.setmEvents(parseSection(characterData.events.items));
+                    character.setComics(parseSection(characterData.comics.items));
+                    character.setSeries(parseSection(characterData.series.items));
+                    character.setStories(parseSection(characterData.stories.items));
+                    character.setEvents(parseSection(characterData.events.items));
                     characterList.add(character);
                 }
                 result.setmEntries(characterList);
