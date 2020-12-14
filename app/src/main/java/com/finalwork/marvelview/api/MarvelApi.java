@@ -10,6 +10,7 @@ import com.finalwork.marvelview.api.json.character.CharacterDataWrapper;
 import com.finalwork.marvelview.api.json.section.SectionDataWrapper;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -40,6 +41,8 @@ public class MarvelApi {
         logging.setLevel(DEBUG ? Level.BODY : Level.BASIC);
 
         OkHttpClient client = new OkHttpClient.Builder()//初始化ok_http
+                .readTimeout(60000, TimeUnit.MILLISECONDS)
+                .connectTimeout(60000,TimeUnit.MILLISECONDS)
                 .addInterceptor(authenticator)
                 .addInterceptor(logging)
                 .build();

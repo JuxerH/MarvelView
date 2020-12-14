@@ -8,6 +8,8 @@ import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.finalwork.marvelview.R;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,6 +29,10 @@ public class CharacterVO  extends BaseObservable implements Serializable  {
     private String mDetail;
     private String mWiki;
     private String mComicLink;
+
+    //中文字段
+    private String zhName;
+    private String zhDescription;
 
     public CharacterVO() {
     }
@@ -128,8 +134,25 @@ public class CharacterVO  extends BaseObservable implements Serializable  {
     }
     @BindingAdapter({"imageUrl"})
     public static void loadImage(ImageView imageView, String image){
-        Glide.with(imageView.getContext()).load(image).into(imageView);
+        Glide.with(imageView.getContext()).load(image).apply(new RequestOptions().placeholder(R.drawable.unknown)).into(imageView);
     }
+
+    public String getZhName() {
+        return zhName;
+    }
+
+    public void setZhName(String zhName) {
+        this.zhName = zhName;
+    }
+
+    public String getZhDescription() {
+        return zhDescription;
+    }
+
+    public void setZhDescription(String zhDescription) {
+        this.zhDescription = zhDescription;
+    }
+
     @Override
     public String toString() {
         return "Character{" + mId + ", '" + mName + "'}";

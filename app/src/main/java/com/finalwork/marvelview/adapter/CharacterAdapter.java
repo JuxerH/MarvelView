@@ -42,6 +42,10 @@ public class CharacterAdapter extends ArrayAdapter<CharacterVO, CharacterAdapter
         mLoading = loading;
     }
 
+    public boolean getLoading() {
+        return mLoading;
+    }
+
     @Override
     public int getItemCount() {
         int count = super.getItemCount();

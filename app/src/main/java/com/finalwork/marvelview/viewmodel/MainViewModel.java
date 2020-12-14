@@ -1,6 +1,5 @@
 package com.finalwork.marvelview.viewmodel;
 
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -34,19 +33,19 @@ public class MainViewModel extends AbsViewModel<MainVM.View> implements MainVM.V
     private String mAttribution;
     private boolean mHasMore;
     private ActivityMainBinding mBinding;
-    private CharacterAdapter mCharacterAdapter;
     private MainActivity mainActivity;
 
-    public MainViewModel(@NonNull MarvelApi marvelApi, MainActivity mainActivity) {
+    public MainViewModel(@NonNull MarvelApi marvelApi,MainActivity mainActivity) {
         mMarvelApi = marvelApi;
         mEntries = new ArrayList<>();
         mBinding=mainActivity.getMainBinding();
-        mCharacterAdapter=mainActivity.getCharacterAdapter();
+        this.mainActivity=mainActivity;
+//        mCharacterAdapter=mainActivity.getCharacterAdapter();
 
     }
 
 
-    public void initScreen() {
+    public void initScreen() {//初始化列表
         if (mEntries.isEmpty()) {
             loadCharacters(0);
         } else {
@@ -57,7 +56,7 @@ public class MainViewModel extends AbsViewModel<MainVM.View> implements MainVM.V
     }
 
 
-    public void loadCharacters(int offset) {
+    public void loadCharacters(int offset) {//载入角色数据
         mView.showProgress();
         mMarvelApi.listCharacters(offset, new MarvelCallback<CharacterDataWrapper>() {
 
@@ -115,15 +114,15 @@ public class MainViewModel extends AbsViewModel<MainVM.View> implements MainVM.V
     }
 
     @Override
-    public void showProgress() {
-        mCharacterAdapter.setLoading(true);
-        mCharacterAdapter.setHasMore(true);
+    public void showProgress() {//设置程序载入状态和是否具有更多数据状态
+        mainActivity.getCharacterAdapter().setLoading(true);
+        mainActivity.getCharacterAdapter().setHasMore(true);
     }
 
     @Override
     public void stopProgress(boolean hasMore) {
-        mCharacterAdapter.setLoading(false);
-        mCharacterAdapter.setHasMore(hasMore);
+        mainActivity.getCharacterAdapter().setLoading(false);
+        mainActivity.getCharacterAdapter().setHasMore(hasMore);
         mBinding.swipeRefresh.setRefreshing(false);
     }
 
@@ -135,7 +134,7 @@ public class MainViewModel extends AbsViewModel<MainVM.View> implements MainVM.V
 
     @Override
     public void showResult(@NonNull List<CharacterVO> entries) {
-        mCharacterAdapter.setItems(entries);
+        mainActivity.getCharacterAdapter().setItems(entries);
 
         if (mBinding.error.isShown()) {
             mBinding.error.setText(null);
@@ -147,7 +146,7 @@ public class MainViewModel extends AbsViewModel<MainVM.View> implements MainVM.V
     @Override
     public void showError(@NonNull Throwable e) {
         String msg = StringUtils.getApiErrorMessage(mainActivity, e);
-        if (mCharacterAdapter.getItemCount() > 1) { // If user already has items shown
+        if (mainActivity.getCharacterAdapter().getItemCount() > 1) { // If user already has items shown
             Snackbar.make(mBinding.recycler, msg, Snackbar.LENGTH_LONG).show();
         } else {
             boolean animate = !TextUtils.equals(mBinding.error.getText(), msg);

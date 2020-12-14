@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.finalwork.marvelview.R;
 import com.finalwork.marvelview.adapter.CharacterAdapter;
+import com.finalwork.marvelview.api.BDTranslateApi;
 import com.finalwork.marvelview.api.MarvelApi;
 import com.finalwork.marvelview.databinding.ActivityMainBinding;
 import com.finalwork.marvelview.viewmodel.MainViewModel;
@@ -30,17 +31,21 @@ public class MainActivity extends AppCompatActivity {
 
          mainBinding.recycler.setLayoutManager(new LinearLayoutManager(this));
          mainBinding.recycler.setHasFixedSize(true);
-         mainBinding.recycler.setAdapter(characterAdapter = new CharacterAdapter(R.layout.item_list_character, mainViewModel, mainViewModel));
 
         if (savedInstanceState == null) {
             mainViewModel= new MainViewModel(MarvelApi.getInstance(),this);
         } else {
             mainViewModel = (MainViewModel) getLastCustomNonConfigurationInstance();
         }
+
+        characterAdapter = new CharacterAdapter(R.layout.item_list_character, mainViewModel, mainViewModel);
+        mainBinding.recycler.setAdapter(characterAdapter);
+
         mainViewModel.attachView(mainViewModel);
         mainViewModel.initScreen();
 
-         mainBinding.setMainViewModel(mainViewModel);
+        mainBinding.setMainViewModel(mainViewModel);
+
 
     }
 
