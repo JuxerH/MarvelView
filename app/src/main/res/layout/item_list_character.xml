@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:transitionName="@string/transition_character_image"
-            imageUrl="@{character.image}"
+            app:imageUrl="@{character.image}"
             tools:src="@mipmap/preload" />
 
         <TextView

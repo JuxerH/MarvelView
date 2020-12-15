@@ -2,12 +2,15 @@ package com.finalwork.marvelview.viewmodel;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
 import com.finalwork.marvelview.adapter.ArrayAdapter;
 import com.finalwork.marvelview.adapter.SectionAdapter;
+import com.finalwork.marvelview.api.BDTranslateApi;
 import com.finalwork.marvelview.api.MarvelApi;
 import com.finalwork.marvelview.api.MarvelCallback;
 import com.finalwork.marvelview.api.MarvelResult;
@@ -22,6 +25,7 @@ import com.finalwork.marvelview.view.SearchActivity;
 import com.finalwork.marvelview.view.SectionActivity;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,17 +38,37 @@ public class DetailViewModel extends AbsViewModel<DetailVM.View> implements Deta
     private final List<SectionVO> mStoryList;
     private final List<SectionVO> mEventList;
 
+
     private DetailActivity detailActivity;
     private ActivityDetailBinding activityDetailBinding;
     private String mAttribution;
 
+    private  static Handler handler;
+    private final BDTranslateApi bdTranslateApi;
+
     public DetailViewModel(@NonNull CharacterVO character,DetailActivity detailActivity) {
         mMarvelApi = MarvelApi.getInstance();
+        bdTranslateApi=BDTranslateApi.getInstance();
+
         mCharacter = character;
+
         mComicList = new ArrayList<>();
         mSeriesList = new ArrayList<>();
         mStoryList = new ArrayList<>();
         mEventList = new ArrayList<>();
+
+        //创建翻译线程
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    if(character.getDescription()!=null){
+                        character.setZhDescription( bdTranslateApi.postTranslate(character.getDescription()));
+                    }}catch (IOException e){
+                    e.getMessage();
+                }
+            }
+        }).start();
 
         activityDetailBinding=detailActivity.getmBinding();
         this.detailActivity=detailActivity;

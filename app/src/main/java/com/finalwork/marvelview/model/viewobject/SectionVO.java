@@ -71,8 +71,9 @@ public class SectionVO  extends BaseObservable implements Serializable {
     public void setImage(String mImage) {
         this.image = mImage;
     }
-    @BindingAdapter({"imageUrl"})
+
+    @BindingAdapter({"sectionImageUrl"})
     public static void loadImage(ImageView imageView, String image){
-        Glide.with(imageView.getContext()).load(image).apply(new RequestOptions().placeholder(R.drawable.bg_main)).into(imageView);
+        Glide.with(imageView.getContext()).load(image).apply(new RequestOptions().placeholder(R.drawable.unknown)).into(imageView);
     }
 }

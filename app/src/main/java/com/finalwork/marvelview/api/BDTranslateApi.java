@@ -1,15 +1,14 @@
 package com.finalwork.marvelview.api;
 
-import android.util.Log;
 
 import com.finalwork.marvelview.api.json.translateresult.TranslateDataWrapper;
-import com.google.gson.Gson;
+
 
 import java.io.IOException;
 
 
 import okhttp3.FormBody;
-import okhttp3.MediaType;
+
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -19,9 +18,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
+
 import retrofit2.http.GET;
-import retrofit2.http.Header;
+
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -61,7 +60,7 @@ public class BDTranslateApi {//单例模式
 
     }
 
-    public String asyTranslate(String query) throws IOException {//TODO 异步方法未完成
+    public String asyTranslate(String query) throws IOException {//异步get请求
         Call<TranslateDataWrapper> translateDataWrapperCall = bdTranslateService.translate(query);
         translateDataWrapperCall.enqueue(new Callback<TranslateDataWrapper>() {
             @Override
@@ -88,28 +87,6 @@ public class BDTranslateApi {//单例模式
     }
 
     public String postTranslate(String query) throws IOException {
-//       PostBody postBody=new PostBody(query);
-//       Gson gson=new Gson();
-//       String postSBody=gson.toJson(postBody);
-
-//       Call<TranslateDataWrapper>  translateDataWrapperCall=
-//               bdTranslateService.postTranslate(RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),postSBody));
-//       translateDataWrapperCall.enqueue(new Callback<TranslateDataWrapper>() {
-//           @Override
-//           public void onResponse(Call<TranslateDataWrapper> call, Response<TranslateDataWrapper> response) {
-//               TranslateDataWrapper translateDataWrapper;
-//               translateDataWrapper=response.body();
-//               if(translateDataWrapper.getError_code()==0) {
-//                   result = translateDataWrapper.getTrans_result().get(0).getDst();
-//               }else result=translateDataWrapper.getError_msg();
-//           }
-//
-//           @Override
-//           public void onFailure(Call<TranslateDataWrapper> call, Throwable t) {
-//               result="translate api error";
-//           }
-//       });
-
         String salt = String.valueOf(System.currentTimeMillis());
         String sign = HashHelper.generate("20201210000643668" + query + salt + "ePE2_QbkzD_adJsjDm5v");
         RequestBody requestBody = new FormBody.Builder()
@@ -121,34 +98,11 @@ public class BDTranslateApi {//单例模式
                 .addEncoded("appid", "20201210000643668")
                 .build();
         Response<TranslateDataWrapper> dataResponse = bdTranslateService.postTranslate(requestBody).execute();
-
-
-//        Response<TranslateDataWrapper> dataResponse=bdTranslateService.postTranslate(FormBody.create(MediaType.parse("application/json; charset=utf-8"),postSBody)).execute();
         TranslateDataWrapper translateDataWrapper = dataResponse.body();
         if (translateDataWrapper.getError_code() == 0) {
             result = translateDataWrapper.getTrans_result().get(0).getDst();
         } else result = translateDataWrapper.getError_msg();
         return result;
-    }
-
-    private class PostBody {
-        String salt;
-        String sign;
-        String q;
-
-        String from;
-        String to;
-        String appid;
-
-        PostBody(String q) {
-            salt = String.valueOf(System.currentTimeMillis());
-            sign = HashHelper.generate("20201210000643668" + q + salt + "ePE2_QbkzD_adJsjDm5v");
-            this.q = q;
-
-            from = "en";
-            to = "zh";
-            appid = "20201210000643668";
-        }
     }
 
     private interface BDTranslateService {

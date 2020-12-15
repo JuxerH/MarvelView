@@ -7,6 +7,8 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,11 +28,16 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import com.finalwork.marvelview.R;
 import com.finalwork.marvelview.adapter.SectionAdapter;
+import com.finalwork.marvelview.api.BDTranslateApi;
 import com.finalwork.marvelview.api.util.PagerSharedElementCallback;
 import com.finalwork.marvelview.databinding.ActivityDetailBinding;
 import com.finalwork.marvelview.model.viewobject.CharacterVO;
 import com.finalwork.marvelview.model.viewobject.SectionVO;
 import com.finalwork.marvelview.viewmodel.DetailViewModel;
+
+import java.io.IOException;
+
+import okhttp3.internal.http2.Http2Reader;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_CHARACTER = DetailActivity.class.getPackage().getName() + ".extra.CHARACTER";
@@ -61,6 +68,7 @@ public class DetailActivity extends AppCompatActivity {
     private DetailViewModel detailViewModel;
     private PagerSharedElementCallback mSharedElementCallback;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +85,10 @@ public class DetailActivity extends AppCompatActivity {
 
         CharacterVO character = (CharacterVO) getIntent().getExtras().get(EXTRA_CHARACTER);
         assert character != null;
+
+
+
+
 
         if (savedInstanceState == null) {
             detailViewModel = new DetailViewModel(character,this);
@@ -131,62 +143,62 @@ public class DetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void onActivityReenter(int resultCode, Intent data) {
-//
-//        int type = SectionActivity.getType(resultCode, data);
-//        final int position = SectionActivity.getPosition(resultCode, data);
-//
-//        final RecyclerView recyclerView;
-//        switch (type) {
-//            case SectionVO.TYPE_COMIC:
-//                recyclerView = mBinding.recyclerComics;
-//                break;
-//            case SectionVO.TYPE_SERIES:
-//                recyclerView = mBinding.recyclerSeries;
-//                break;
-//            case SectionVO.TYPE_STORY:
-//                recyclerView = mBinding.recyclerStories;
-//                break;
-//            case SectionVO.TYPE_EVENT:
-//                recyclerView = mBinding.recyclerEvents;
-//                break;
-//            default:
-//                recyclerView = null;
-//        }
-//
-//        if (recyclerView == null) {
-//            return;
-//        }
-//
-//        if (position != SectionActivity.EXTRA_NOT_FOUND) {
-//            recyclerView.scrollToPosition(position);
-//        }
-//
-//        mSharedElementCallback = new PagerSharedElementCallback();
-//        setExitSharedElementCallback(mSharedElementCallback);
-//
-//        //noinspection ConstantConditions
-//        supportPostponeEnterTransition();
-//        recyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-//            @Override
-//            public boolean onPreDraw() {
-//                recyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
-//
-//                RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(position);
-//                if (holder instanceof SectionAdapter.ViewHolder) {
-//                    SectionAdapter.ViewHolder mediaViewHolder = (SectionAdapter.ViewHolder) holder;
-//                    // TODO: 01/02/2017 Change findViewById(R.id.image) for a view reference
-//                    mSharedElementCallback.setSharedElementViews(mediaViewHolder.itemView.findViewById(R.id.image));
-//                }
-//
-//                supportStartPostponedEnterTransition();
-//
-//                return true;
-//            }
-//        });
-//
-//    }
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+
+        int type = SectionActivity.getType(resultCode, data);
+        final int position = SectionActivity.getPosition(resultCode, data);
+
+        final RecyclerView recyclerView;
+        switch (type) {
+            case SectionVO.TYPE_COMIC:
+                recyclerView = mBinding.recyclerComics;
+                break;
+            case SectionVO.TYPE_SERIES:
+                recyclerView = mBinding.recyclerSeries;
+                break;
+            case SectionVO.TYPE_STORY:
+                recyclerView = mBinding.recyclerStories;
+                break;
+            case SectionVO.TYPE_EVENT:
+                recyclerView = mBinding.recyclerEvents;
+                break;
+            default:
+                recyclerView = null;
+        }
+
+        if (recyclerView == null) {
+            return;
+        }
+
+        if (position != SectionActivity.EXTRA_NOT_FOUND) {
+            recyclerView.scrollToPosition(position);
+        }
+
+        mSharedElementCallback = new PagerSharedElementCallback();
+        setExitSharedElementCallback(mSharedElementCallback);
+
+        //noinspection ConstantConditions
+        supportPostponeEnterTransition();
+        recyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                recyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(position);
+                if (holder instanceof SectionAdapter.ViewHolder) {
+                    SectionAdapter.ViewHolder mediaViewHolder = (SectionAdapter.ViewHolder) holder;
+                    // TODO: 01/02/2017 Change findViewById(R.id.image) for a view reference
+                    mSharedElementCallback.setSharedElementViews(mediaViewHolder.itemView.findViewById(R.id.image));
+                }
+
+                supportStartPostponedEnterTransition();
+
+                return true;
+            }
+        });
+
+    }
 
 
     public ActivityDetailBinding getmBinding() {
