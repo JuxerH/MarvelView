@@ -20,6 +20,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--Character-->
+        <activity
+            android:name=".view.DetailActivity"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar.TranslucentStatusBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.MainActivity" />
+        </activity>
+
+        <!--Section-->
+        <activity
+            android:name=".view.SectionActivity"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/AppTheme.Translucent">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.SectionActivity"/>
+        </activity>
+
+        <!--Search-->
+        <activity
+            android:name=".view.SearchActivity"
+            android:label=""
+            android:launchMode="singleTop"
+            android:parentActivityName=".view.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.MainActivity" />
+        </activity>
+
+
+
+
     </application>
 
 </manifest>

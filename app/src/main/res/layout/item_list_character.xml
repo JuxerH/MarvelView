@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
+            android:transitionName="@string/transition_character_image"
             imageUrl="@{character.image}"
             tools:src="@mipmap/preload" />
 

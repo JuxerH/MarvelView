@@ -105,7 +105,7 @@ public class DataParser {
         for (SectionSummary summary : items) {
             SectionVO section = new SectionVO();
             section.setmId(summary.getId());
-            section.setmTitle(summary.name);
+            section.setTitle(summary.name);
             list.add(section);
         }
         return list;
@@ -123,9 +123,9 @@ public class DataParser {
                 for (SectionData sectionData : results) {
                     SectionVO sectionVO = new SectionVO();
                     sectionVO.setmId(sectionData.id);
-                    sectionVO.setmTitle(sectionData.title);
+                    sectionVO.setTitle(sectionData.title);
                     sectionVO.setmThumbnail(sectionData.getThumbnail());
-                    sectionVO.setmImage(sectionData.getImage());
+                    sectionVO.setImage(sectionData.getImage());
                     list.add(sectionVO);
                 }
                 result.setmEntries(list);

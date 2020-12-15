@@ -10,10 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.finalwork.marvelview.R;
+import com.finalwork.marvelview.adapter.ArrayAdapter;
 import com.finalwork.marvelview.adapter.CharacterAdapter;
 import com.finalwork.marvelview.api.BDTranslateApi;
 import com.finalwork.marvelview.api.MarvelApi;
 import com.finalwork.marvelview.databinding.ActivityMainBinding;
+import com.finalwork.marvelview.databinding.ItemListCharacterBinding;
+import com.finalwork.marvelview.model.viewobject.CharacterVO;
 import com.finalwork.marvelview.viewmodel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
     public ActivityMainBinding getMainBinding() {
         return mainBinding;

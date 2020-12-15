@@ -1,11 +1,20 @@
 package com.finalwork.marvelview.model.viewobject;
 
+import android.widget.ImageView;
+
 import androidx.annotation.IntDef;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.finalwork.marvelview.R;
 
 import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-public class SectionVO implements Serializable {
+public class SectionVO  extends BaseObservable implements Serializable {
 
     public static final int TYPE_COMIC = 0;
     public static final int TYPE_SERIES = 1;
@@ -20,7 +29,8 @@ public class SectionVO implements Serializable {
     private long mId;
     private String mTitle;
     private String mThumbnail;
-    private String mImage;
+    @Bindable
+    private String image;
 
     public SectionVO() {
     }
@@ -38,11 +48,11 @@ public class SectionVO implements Serializable {
         this.mId = mId;
     }
 
-    public String getmTitle() {
+    public String getTitle() {
         return mTitle;
     }
 
-    public void setmTitle(String mTitle) {
+    public void setTitle(String mTitle) {
         this.mTitle = mTitle;
     }
 
@@ -54,11 +64,15 @@ public class SectionVO implements Serializable {
         this.mThumbnail = mThumbnail;
     }
 
-    public String getmImage() {
-        return mImage;
+    public String getImage() {
+        return image;
     }
 
-    public void setmImage(String mImage) {
-        this.mImage = mImage;
+    public void setImage(String mImage) {
+        this.image = mImage;
+    }
+    @BindingAdapter({"imageUrl"})
+    public static void loadImage(ImageView imageView, String image){
+        Glide.with(imageView.getContext()).load(image).apply(new RequestOptions().placeholder(R.drawable.bg_main)).into(imageView);
     }
 }

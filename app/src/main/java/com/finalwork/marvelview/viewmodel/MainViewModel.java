@@ -1,5 +1,6 @@
 package com.finalwork.marvelview.viewmodel;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -18,7 +19,9 @@ import com.finalwork.marvelview.api.util.ViewUtils;
 import com.finalwork.marvelview.databinding.ActivityMainBinding;
 import com.finalwork.marvelview.databinding.ItemListCharacterBinding;
 import com.finalwork.marvelview.model.viewobject.CharacterVO;
+import com.finalwork.marvelview.view.DetailActivity;
 import com.finalwork.marvelview.view.MainActivity;
+import com.finalwork.marvelview.view.SearchActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -38,6 +41,7 @@ public class MainViewModel extends AbsViewModel<MainVM.View> implements MainVM.V
     public MainViewModel(@NonNull MarvelApi marvelApi,MainActivity mainActivity) {
         mMarvelApi = marvelApi;
         mEntries = new ArrayList<>();
+
         mBinding=mainActivity.getMainBinding();
         this.mainActivity=mainActivity;
 //        mCharacterAdapter=mainActivity.getCharacterAdapter();
@@ -159,12 +163,12 @@ public class MainViewModel extends AbsViewModel<MainVM.View> implements MainVM.V
 
     @Override
     public void openCharacter(@NonNull View heroView, @NonNull CharacterVO character) {
-//        CharacterActivity.start(this, heroView, character);
+        DetailActivity.start(mainActivity, heroView, character);
     }
 
     @Override
     public void openSearch() {
-//        startActivity(new Intent(this, SearchActivity.class));
+        mainActivity.startActivity(new Intent(mainActivity, SearchActivity.class));
     }
 
 }

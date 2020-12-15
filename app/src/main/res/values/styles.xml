@@ -1,4 +1,4 @@
-<resources>
+    <resources>
 
     <style name="TextAppearance.Character.Name" parent="@style/TextAppearance.AppCompat.Headline">
         <item name="android:shadowColor">@android:color/black</item>

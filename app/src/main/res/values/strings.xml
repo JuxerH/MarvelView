@@ -11,7 +11,26 @@
     <string name="login_failed">"Login failed"</string>
     <string name="connection_error">哦豁，网络连接错误，快去看看您的网络连接！</string>
     <string name="fetching_data">正在获取数据......</string>
-    <string name="action_search">搜索</string>
+
     <string name="transition_character_image" translatable="false">过渡角色图片</string>
+    <string name="transition_section_image" translatable="false">过渡部分图片</string>
+
     <string name="server_error">哦豁，出问题了，马上重新来过</string>
+    <string name="label_description">角色描述</string>
+    <string name="unavailable_description">该角色描述甚少，或许是无名小卒，又或许是......"</string>
+    <string name="unavailable_data">未知数据</string>
+
+    <string name="label_comics">漫画</string>
+    <string name="label_series">系列</string>
+    <string name="label_stories">故事</string>
+    <string name="label_events">事件</string>
+
+    <string name="label_related_links">相关链接</string>
+    <string name="link_detail">更多</string>
+    <string name="link_wiki">维基百科</string>
+    <string name="link_comic">漫画链接</string>
+
+    <string name="action_search">搜索</string>
+    <string name="search_hint">搜寻中......</string>
+
 </resources>
