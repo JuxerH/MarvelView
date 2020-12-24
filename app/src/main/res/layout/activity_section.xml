@@ -39,7 +39,7 @@
                 android:layout_weight="1"
                 android:text="@{attribution}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                tools:text="Data provided by Marvel. © 2014 Marvel"/>
+                tools:text="Data provided by Marvel. © 2020 Marvel"/>
 
             <ImageView
                 style="@style/Base.Widget.AppCompat.Button.Borderless"

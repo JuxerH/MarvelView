@@ -39,7 +39,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:transitionName="@{imageTransition}"
-            imageUrl="@{section.image}"
+            sectionImageUrl="@{section.image}"
             listener="@{imageListener}"
             tools:src="@mipmap/ic_launcher" />
 

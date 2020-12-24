@@ -78,10 +78,6 @@ public class DetailActivity extends AppCompatActivity {
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setupSectionView(mBinding.recyclerComics,SectionVO.TYPE_COMIC);
-        setupSectionView(mBinding.recyclerSeries, SectionVO.TYPE_SERIES);
-        setupSectionView(mBinding.recyclerStories, SectionVO.TYPE_STORY);
-        setupSectionView(mBinding.recyclerEvents, SectionVO.TYPE_EVENT);
 
         CharacterVO character = (CharacterVO) getIntent().getExtras().get(EXTRA_CHARACTER);
         assert character != null;
@@ -95,7 +91,14 @@ public class DetailActivity extends AppCompatActivity {
         } else {
             detailViewModel = (DetailViewModel) getLastCustomNonConfigurationInstance();
         }
+
+        setupSectionView(mBinding.recyclerComics,SectionVO.TYPE_COMIC);
+        setupSectionView(mBinding.recyclerSeries, SectionVO.TYPE_SERIES);
+        setupSectionView(mBinding.recyclerStories, SectionVO.TYPE_STORY);
+        setupSectionView(mBinding.recyclerEvents, SectionVO.TYPE_EVENT);
+
         detailViewModel.attachView(detailViewModel);
+
 
         mBinding.setDetailViewModel(detailViewModel);
     }
@@ -188,7 +191,6 @@ public class DetailActivity extends AppCompatActivity {
                 RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(position);
                 if (holder instanceof SectionAdapter.ViewHolder) {
                     SectionAdapter.ViewHolder mediaViewHolder = (SectionAdapter.ViewHolder) holder;
-                    // TODO: 01/02/2017 Change findViewById(R.id.image) for a view reference
                     mSharedElementCallback.setSharedElementViews(mediaViewHolder.itemView.findViewById(R.id.image));
                 }
 

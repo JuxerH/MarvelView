@@ -3,6 +3,7 @@ package com.finalwork.marvelview.model.viewobject;
 import android.widget.ImageView;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
@@ -10,6 +11,7 @@ import androidx.databinding.BindingAdapter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.finalwork.marvelview.R;
+import com.finalwork.marvelview.adapter.ImageLoadingListener;
 
 import java.io.Serializable;
 import java.lang.annotation.Retention;
@@ -72,8 +74,8 @@ public class SectionVO  extends BaseObservable implements Serializable {
         this.image = mImage;
     }
 
-    @BindingAdapter({"sectionImageUrl"})
-    public static void loadImage(ImageView imageView, String image){
-        Glide.with(imageView.getContext()).load(image).apply(new RequestOptions().placeholder(R.drawable.unknown)).into(imageView);
+    @BindingAdapter(value = {"sectionImageUrl","listener"},requireAll = false)
+    public static void loadImage(ImageView imageView, @Nullable String image, @Nullable ImageLoadingListener listener){
+        Glide.with(imageView.getContext()).load(image).addListener(listener).apply(new RequestOptions().placeholder(R.drawable.unknown)).into(imageView);
     }
 }

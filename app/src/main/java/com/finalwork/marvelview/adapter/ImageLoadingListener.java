@@ -35,8 +35,8 @@ public abstract class ImageLoadingListener implements RequestListener<Drawable> 
 
     public abstract void onFailed(@NonNull Exception e);
 
-    @BindingAdapter({"listener"})
-    public static void loadListener(ImageView imageView,ImageLoadingListener loadingListener){
-        return;//TODO
-    }
+//    @BindingAdapter({"listener"})
+//    public static void loadListener(ImageView imageView,ImageLoadingListener loadingListener){
+//        return;//TODO
+//    }
 }

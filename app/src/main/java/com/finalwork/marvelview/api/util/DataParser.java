@@ -23,10 +23,6 @@ public class DataParser {
 
 
     public static MarvelResult<CharacterVO> parse(CharacterDataWrapper dataWrapper) {//从DataWrapper转成ViewObject
-//        StringBuffer nameTranslatePool=new StringBuffer();
-//        StringBuffer descriptionTranslatePool=new StringBuffer();
-//        String[] nameTranslateResult;
-
         MarvelResult<CharacterVO> result = new MarvelResult<>();
         CharacterDataContainer dataContainer = dataWrapper.data;
         if (dataContainer != null) {
@@ -41,19 +37,6 @@ public class DataParser {
                     character.setId(characterData.id);
                     character.setName(characterData.name);
                     character.setDescription(characterData.description);
-
-//                    try { TODO
-//                        if (!characterData.name.equals("")) {
-//                            character.setZhName(translateTool.asyTranslate(characterData.name));
-//                        } else character.setZhName("代号未知");
-//                        if (!characterData.description.equals("")) {
-//                            character.setZhDescription(translateTool.asyTranslate(characterData.description));
-//                        } else character.setDescription("该角色描述甚少，或许是无名小卒，又或许是......");
-//                    } catch (IOException e) {
-//                        e.getMessage();
-//                    }
-
-//                   nameTranslatePool.append(characterData.name).append("95279527"); TODO
 
                     character.setThumbnail(characterData.getThumbnail());
                     character.setImage(characterData.getImage());
@@ -73,30 +56,10 @@ public class DataParser {
                     characterList.add(character);
                 }
 
-//                try { TODO
-//                    String resultString=translateTool.postTranslate(nameTranslatePool.toString());
-//                    nameTranslateResult=resultString.split("95279527");
-//
-//                    if(nameTranslateResult.length==characterList.size()){
-//                            for(int i=0;i<nameTranslateResult.length;i++){
-//                                characterList.get(i).setZhName(nameTranslateResult[i]);
-//                        }
-//                    }
-//                }catch (IOException e){
-//                    e.getMessage();
-//                }
-
                 result.setmEntries(characterList);
             }
         }
         result.setmAttribution(dataWrapper.attributionText);
-        return result;
-    }
-
-    public static String parse(TranslateDataWrapper translateDataWrapper) {
-        String result = "";//TODO
-
-
         return result;
     }
 

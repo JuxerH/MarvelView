@@ -34,7 +34,7 @@
                 android:scaleType="centerInside"
                 android:transitionName="@{imageTransition}"
 
-                app:sectionImageUrl="@{section.image}"
+                sectionImageUrl="@{section.image}"
                 tools:src="@mipmap/ic_launcher" />
 
             <TextView
